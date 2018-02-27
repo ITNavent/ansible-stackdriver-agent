@@ -1,0 +1,26 @@
+---
+
+- name: Download the Monitoring Agent
+  get_url:
+    url: https://dl.google.com/cloudagents/install-monitoring-agent.sh
+    dest: "/tmp/install-monitoring-agent.sh"
+    mode: "+x"
+
+- name: Install the Monitoring Agent
+  shell: "/tmp/install-monitoring-agent.sh"
+
+- name: Copy custom configuration files
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/stackdriver/collectd/etc/collectd.d/{{ item | basename }}"
+    backup: yes
+  with_items: "{{ stackdriver_custom_config_files }}"
+  notify: restart stackdriver-agent
+
+- name: Copy custom configuration files
+  template:
+    src: "{{ item }}"
+    dest: "/opt/stackdriver/collectd/etc/collectd.d/{{ item | basename }}"
+    backup: yes
+  with_items: "{{ stackdriver_custom_config_templates }}"
+  notify: restart stackdriver-agent
