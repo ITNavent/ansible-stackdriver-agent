@@ -1,13 +1,20 @@
 ---
 
+- name: Check if Monitoring Agent is installed
+  stat:
+    path: "/opt/google-fluentd/usr/sbin/google-fluentd"
+  register: stackdriver_installed
+
 - name: Download the Monitoring Agent
   get_url:
     url: https://dl.google.com/cloudagents/install-monitoring-agent.sh
     dest: "/tmp/install-monitoring-agent.sh"
     mode: "+x"
+  when: stackdriver_installed.stat.exists == False
 
 - name: Install the Monitoring Agent
   shell: "/tmp/install-monitoring-agent.sh"
+  when: stackdriver_installed.stat.exists == False
 
 - name: Copy custom configuration files
   copy:
