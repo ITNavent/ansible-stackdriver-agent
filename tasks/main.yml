@@ -2,7 +2,7 @@
 
 - name: Check if Monitoring Agent is installed
   stat:
-    path: "/opt/google-fluentd/usr/sbin/google-fluentd"
+    path: "/opt/stackdriver/collectd/bin/stackdriver-collectdctl"
   register: stackdriver_installed
 
 - name: Download the Monitoring Agent
