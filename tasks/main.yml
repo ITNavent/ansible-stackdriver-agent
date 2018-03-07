@@ -2,7 +2,7 @@
 
 - name: Check if Monitoring Agent is installed
   stat:
-    path: "/opt/stackdriver/collectd/bin/stackdriver-collectdctl"
+    path: "/opt/stackdriver/collectd/sbin/stackdriver-collectd"
   register: stackdriver_installed
 
 - name: Download the Monitoring Agent
@@ -18,7 +18,7 @@
 
 - name: Install configurations
   get_url:
-    url: "raw.githubusercontent.com/Stackdriver/stackdriver-agent-service-configs/master/etc/collectd.d/{{ item }}.conf"
+    url: "https://raw.githubusercontent.com/Stackdriver/stackdriver-agent-service-configs/master/etc/collectd.d/{{ item }}.conf"
     dest: "/opt/stackdriver/collectd/etc/collectd.d/"
   with_items: "{{ stackdriver_configs }}"
 
