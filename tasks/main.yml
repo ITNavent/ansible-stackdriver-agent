@@ -16,6 +16,12 @@
   shell: "/tmp/install-monitoring-agent.sh"
   when: stackdriver_installed.stat.exists == False
 
+- name: Install configurations
+  get_url:
+    url: "raw.githubusercontent.com/Stackdriver/stackdriver-agent-service-configs/master/etc/collectd.d/{{ item }}.conf"
+    dest: "/opt/stackdriver/collectd/etc/collectd.d/"
+  with_items: "{{ stackdriver_configs }}"
+
 - name: Copy custom configuration files
   copy:
     src: "{{ item }}"
