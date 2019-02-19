@@ -17,3 +17,8 @@ stackdriver_custom_config_files: []
 ```yaml
 stackdriver_custom_config_templates: []
 ```
+
++ Adds this folder as a configuration folder.
+```yaml
+stackdriver_custom_config_directory: ''
+```
