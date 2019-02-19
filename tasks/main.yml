@@ -18,7 +18,7 @@
 
 - name: Add custom config directory
   lineinfile:
-    file: "/etc/stackdriver/collectd.conf"
+    path: "/etc/stackdriver/collectd.conf"
     line: "Include \"{{ stackdriver_custom_config_directory }}\""
     state: present
   when: stackdriver_custom_config_directory != ''
