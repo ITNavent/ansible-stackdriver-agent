@@ -3,3 +3,4 @@
 stackdriver_custom_config_files: []
 stackdriver_custom_config_templates: []
 stackdriver_configs: []
+stackdriver_custom_config_directory: ''
